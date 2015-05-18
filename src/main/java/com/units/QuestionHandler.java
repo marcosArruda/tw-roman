@@ -2,10 +2,7 @@ package com.units;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-
-public class QuestionHandler
-{
+public class QuestionHandler{
 	private RomanNumerals rNumeral;
 	private VulcanNumerals vNumeral;
 	private NumeralMapper nMapper;
@@ -19,22 +16,18 @@ public class QuestionHandler
 		this.nMapper = nMapper;
 		this.cMapper = cMapper;
 	}
-	public String handle(String line, Global.LineType type)
-	{
+	public String handle(String line, Global.LineType type){
 		String result="";
-		if(type == Global.LineType.QUESTION_HOW_MANY)
-		{
+		if(type == Global.LineType.QUESTION_HOW_MANY){
 			result = handleHowMany(line);
 		}
-		else if(type == Global.LineType.QUESTION_HOW_MUCH)
-		{
+		else if(type == Global.LineType.QUESTION_HOW_MUCH){
 			result =handleHowMuch(line);
 		}
 		return result;
 	}
 	
-	private String handleHowMuch(String line)
-	{
+	private String handleHowMuch(String line){
 //		String regex = "^how much is ((?:\\w+ )+)\\?$";
 		String regex = Global.regexHowMuch;
 		pattern = Pattern.compile(regex);
@@ -44,26 +37,20 @@ public class QuestionHandler
 		m.matches();
 		String  inputs =  m.group(1);
 		
-		if(vNumeral.areValid(inputs.split(" ")))
-		{
+		if(vNumeral.areValid(inputs.split(" "))){
 			String romanNumeral = nMapper.convertToRomanNumeral(inputs.split(" "));
 			//XLII
 			int number = rNumeral.evaluate(romanNumeral);
-			if(number != -1 )
-			{
+			if(number != -1 ){
 				return inputs + " is " + number +".";
-			}
-			else
-			{
+			}else{
 				return null;
 			}
 		}
-		
 		return null;
 	}
 	
-	private String handleHowMany(String line)
-	{
+	private String handleHowMany(String line){
 //		String regex = "^how many ([a-zA-Z]\\w+) is ((?:\\w+ )+)([A-Z]\\w+) \\?$";
 		String regex = Global.regexHowMany;
 		pattern = Pattern.compile(regex);
@@ -75,8 +62,7 @@ public class QuestionHandler
 		String currencyName = m.group(3);
 		
 		
-		if(!vNumeral.areValid(vulcanNumbers))
-		{
+		if(!vNumeral.areValid(vulcanNumbers)){
 			Util.promptUser("Undeclared Vulcan number was used, question ignored.");
 			return null;
 		}
@@ -84,8 +70,7 @@ public class QuestionHandler
 		String romanNumerals = vNumeral.toRomanNumeral(vulcanNumbers);
 		int materialQuantitiy  = rNumeral.evaluate(romanNumerals);
 		
-		if(materialQuantitiy != -1)
-		{
+		if(materialQuantitiy != -1){
 			double totalCredits = materialQuantitiy * cMapper.getUnitValue(currencyName); 
 			
 			StringBuilder result = new StringBuilder();

@@ -1,33 +1,38 @@
 package com.units;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
-public class Parser
-{
+public class Parser{
 	private String lineContents;
 	private Matcher matcher;
-	private QuestionHandler qHandler;
-	private NumeralMapper nMapper;
-	private RomanNumerals rNumeral;
-	private VulcanNumerals vNumeral;
-	private CurrencyMapper cMapper;
+	private QuestionHandler questionHandler;
+	private NumeralMapper numeralMapper;
+	private RomanNumerals romanNumberal;
+	private VulcanNumerals vulcanNumeral;
+	private CurrencyMapper currencyMapper;
 	private Scanner inputScanner;
 
-	public Parser(String inputString){
-		inputScanner  = new Scanner(inputString);
-		rNumeral = new RomanNumerals();
-		vNumeral = new VulcanNumerals();
-		nMapper =  new NumeralMapper(rNumeral, vNumeral);
-		cMapper = new CurrencyMapper(rNumeral, vNumeral);
-		qHandler = new QuestionHandler(rNumeral, vNumeral, nMapper, cMapper);
+	public Parser() throws FileNotFoundException {
+		//File file = new File();
+
+		inputScanner  = new Scanner(System.in);
+		romanNumberal = new RomanNumerals();
+		vulcanNumeral = new VulcanNumerals();
+		numeralMapper =  new NumeralMapper(romanNumberal, vulcanNumeral);
+		currencyMapper = new CurrencyMapper(romanNumberal, vulcanNumeral);
+		questionHandler = new QuestionHandler(romanNumberal, vulcanNumeral, numeralMapper, currencyMapper);
 	}
 	
 	private String [] getAssignmentOperands(String line){
+
 		String [] parts = line.split(" ");
 		return new String [] { parts[0], parts[2]};
+
 	}
 	
 	public void parse(){
@@ -60,19 +65,19 @@ public class Parser
 						// assignment processing.
 						matchFound = true;
 						String [] operands = getAssignmentOperands(lineContents);
-						nMapper.addToMap(operands[0], operands[1]);
+						numeralMapper.addToMap(operands[0], operands[1]);
 						break;
 
 					case CREDITSINFO:
 						// CreditsInfo processing.
 						matchFound = true;
-						cMapper.processCreditInfo(lineContents);
+						currencyMapper.processCreditInfo(lineContents);
 						break;
 
 					case QUESTION_HOW_MANY:
 						// How many types processing.
 						matchFound = true;
-						answer = qHandler.handle(lineContents, l.getType());
+						answer = questionHandler.handle(lineContents, l.getType());
 						if(answer != null) {
 							Util.promptUser(answer);
 						}
@@ -81,7 +86,7 @@ public class Parser
 					case QUESTION_HOW_MUCH:
 						// How much types processing.
 						matchFound = true;
-						answer = qHandler.handle(lineContents, l.getType());
+						answer = questionHandler.handle(lineContents, l.getType());
 						if(answer != null) {
 							Util.promptUser(answer);
 						}
@@ -97,7 +102,7 @@ public class Parser
 			}
 		}
 	}
-	
+
 	private enum LineRegEx{
 		Assignment(Global.regexAssignment, Global.LineType.ASSIGNMENT),
 		CreditsInfo(Global.regexCreditsInfo, Global.LineType.CREDITSINFO),
@@ -106,6 +111,7 @@ public class Parser
 		
 		private final Pattern linePattern;
 		private final Global.LineType type;
+
 		LineRegEx(String linePattern, Global.LineType type){
 			this.linePattern=Pattern.compile(linePattern);
 			this.type = type;

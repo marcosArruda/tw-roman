@@ -10,18 +10,19 @@ public class VulcanNumerals{
 	private static List<String> vulcanNumerals;
 	private NumeralMapper nMapper;
 
-	public VulcanNumerals() 
-	{
+	public VulcanNumerals(){
 		vulcanNumerals = new ArrayList<String>();
 	}
-	public void storeNumeralMapper(NumeralMapper nMapper)
-	{
+
+	public void storeNumeralMapper(NumeralMapper nMapper){
 		this.nMapper = nMapper;
 	}
+
 	public String toRomanNumeral(String [] numeral)
 	{
 		 return nMapper.convertToRomanNumeral(numeral);
 	}
+
 	public void addNumeral(String numeral){
 		if(isWord(numeral)){
 			vulcanNumerals.add(numeral);
@@ -30,7 +31,6 @@ public class VulcanNumerals{
 			Util.promptUser("Inncorrect Vulcan Numeral");
 		}
 	}
-	
 	private boolean isValid(String numeral){
 		for(String item : vulcanNumerals){
 			if ( numeral.equals(item)){
@@ -39,7 +39,6 @@ public class VulcanNumerals{
 		}
 		return false;
 	}
-	
 	public boolean areValid(String [] numeral){
 		for (String s : numeral){
 			if(!isValid(s)){
@@ -49,7 +48,6 @@ public class VulcanNumerals{
 		}
 		return true;
 	}
-	
 	public boolean isWord(String numeral){
 		String wordRegex ="^[a-z]+";
 		Matcher matcher;

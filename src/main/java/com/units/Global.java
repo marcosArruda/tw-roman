@@ -2,8 +2,7 @@ package com.units;
 
 public class Global
 {
-	public static enum LineType
-	{
+	public static enum LineType{
 		ASSIGNMENT,
 		CREDITSINFO,
 		QUESTION_HOW_MANY,

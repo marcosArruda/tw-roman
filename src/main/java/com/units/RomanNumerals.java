@@ -1,28 +1,20 @@
 package com.units;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-
 public class RomanNumerals{
 	private String [] repetitionTest = {"(IIII+)","(XXXX+)", "(CCCC+)", "(MMMM+)", "(DD+)", "(LL+)", "(VV+)"};
 	Pattern pattern;
-
 	public enum Numeral{ I(1), V(5), X(10), L(50), C(100), D(500),M(1000);
-			
 			private final int number;
-
 			private Numeral(int number){
 				this.number = number;
 			}
-
 			public int getNumber(){
 				return number;
 			}
 		}
-
 	private int getNumberFromChar(char numeral){
 		int temp = -1;
 		switch(numeral){
@@ -122,7 +114,6 @@ public class RomanNumerals{
 		for(int i = 0 ; i < numbers.size()-1; i++){
 			number = numbers.get(i);
 			nextNumber = Math.abs(numbers.get(i+1));
-			
 			//V, L , D can never be subtracted.
 			if( number == -5 || number == -50 || number == - 500){
 				Util.promptUser("V, L, and D can never be subtracted.");
