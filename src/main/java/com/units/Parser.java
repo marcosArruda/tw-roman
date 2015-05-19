@@ -1,7 +1,6 @@
 package com.units;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -13,26 +12,27 @@ public class Parser{
 	private QuestionHandler questionHandler;
 	private NumeralMapper numeralMapper;
 	private RomanNumerals romanNumberal;
-	private VulcanNumerals vulcanNumeral;
+	private AlienNumerals alienNumeral;
 	private CurrencyMapper currencyMapper;
 	private Scanner inputScanner;
 
-	public Parser() throws FileNotFoundException {
-		//File file = new File();
-
-		inputScanner  = new Scanner(System.in);
+	public Parser(){
+		try{
+			InputStream is = new FileInputStream("file.txt");
+			inputScanner  = new Scanner(new BufferedInputStream(is)).useDelimiter("\\||\\n");
+		}catch (Exception e){
+			e.printStackTrace();
+		}
 		romanNumberal = new RomanNumerals();
-		vulcanNumeral = new VulcanNumerals();
-		numeralMapper =  new NumeralMapper(romanNumberal, vulcanNumeral);
-		currencyMapper = new CurrencyMapper(romanNumberal, vulcanNumeral);
-		questionHandler = new QuestionHandler(romanNumberal, vulcanNumeral, numeralMapper, currencyMapper);
+		alienNumeral = new AlienNumerals();
+		numeralMapper =  new NumeralMapper(romanNumberal, alienNumeral);
+		currencyMapper = new CurrencyMapper(romanNumberal, alienNumeral);
+		questionHandler = new QuestionHandler(romanNumberal, alienNumeral, numeralMapper, currencyMapper);
 	}
 	
 	private String [] getAssignmentOperands(String line){
-
 		String [] parts = line.split(" ");
 		return new String [] { parts[0], parts[2]};
-
 	}
 	
 	public void parse(){

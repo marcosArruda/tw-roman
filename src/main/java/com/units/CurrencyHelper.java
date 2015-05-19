@@ -16,7 +16,7 @@ package com.units;
 
 public class CurrencyHelper{
 	public static void main(String args []){
-		Util.promptUser("This program helps in currency conversion between Vulcan Numerals and Roman Numerals." +
+		Util.promptUser("This program helps in currency conversion between Alien Numerals and Roman Numerals." +
 				"\n Feed in value for Roman Numerals like I,V,X etc..");
 		Parser parser = new Parser();
 		parser.parse();

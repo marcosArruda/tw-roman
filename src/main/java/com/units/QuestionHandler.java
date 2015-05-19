@@ -4,13 +4,13 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 public class QuestionHandler{
 	private RomanNumerals rNumeral;
-	private VulcanNumerals vNumeral;
+	private AlienNumerals vNumeral;
 	private NumeralMapper nMapper;
 	private CurrencyMapper cMapper;
 
 	Pattern pattern;
 
-	QuestionHandler(RomanNumerals rNumeral, VulcanNumerals vNumeral, NumeralMapper nMapper, CurrencyMapper cMapper){
+	QuestionHandler(RomanNumerals rNumeral, AlienNumerals vNumeral, NumeralMapper nMapper, CurrencyMapper cMapper){
 		this.rNumeral = rNumeral;
 		this.vNumeral = vNumeral;
 		this.nMapper = nMapper;
@@ -58,16 +58,16 @@ public class QuestionHandler{
 		m.matches();
 		
 		String creditName = m.group(1);
-		String [] vulcanNumbers = m.group(2).split("\\s");
+		String [] alienNumbers = m.group(2).split("\\s");
 		String currencyName = m.group(3);
 		
 		
-		if(!vNumeral.areValid(vulcanNumbers)){
-			Util.promptUser("Undeclared Vulcan number was used, question ignored.");
+		if(!vNumeral.areValid(alienNumbers)){
+			Util.promptUser("Undeclared Alien number was used, question ignored.");
 			return null;
 		}
 		
-		String romanNumerals = vNumeral.toRomanNumeral(vulcanNumbers);
+		String romanNumerals = vNumeral.toRomanNumeral(alienNumbers);
 		int materialQuantitiy  = rNumeral.evaluate(romanNumerals);
 		
 		if(materialQuantitiy != -1){

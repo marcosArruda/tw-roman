@@ -6,12 +6,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
-public class VulcanNumerals{
-	private static List<String> vulcanNumerals;
+public class AlienNumerals {
+	private static List<String> alienNumerals;
 	private NumeralMapper nMapper;
 
-	public VulcanNumerals(){
-		vulcanNumerals = new ArrayList<String>();
+	public AlienNumerals(){
+		alienNumerals = new ArrayList<String>();
 	}
 
 	public void storeNumeralMapper(NumeralMapper nMapper){
@@ -25,14 +25,14 @@ public class VulcanNumerals{
 
 	public void addNumeral(String numeral){
 		if(isWord(numeral)){
-			vulcanNumerals.add(numeral);
+			alienNumerals.add(numeral);
 		}
 		else{
-			Util.promptUser("Inncorrect Vulcan Numeral");
+			Util.promptUser("Inncorrect Alien Numeral");
 		}
 	}
 	private boolean isValid(String numeral){
-		for(String item : vulcanNumerals){
+		for(String item : alienNumerals){
 			if ( numeral.equals(item)){
 				return true;
 			}
@@ -42,7 +42,7 @@ public class VulcanNumerals{
 	public boolean areValid(String [] numeral){
 		for (String s : numeral){
 			if(!isValid(s)){
-				Util.promptUser(s +" is not a Vulcan Numeral.");
+				Util.promptUser(s +" is not a Alien Numeral.");
 				return false;
 			}
 		}

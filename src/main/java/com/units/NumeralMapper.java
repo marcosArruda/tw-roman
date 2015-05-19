@@ -6,15 +6,16 @@ import java.util.Map.Entry;
 
 class NumeralMapper{
 	private RomanNumerals romanNumerals;
-	private VulcanNumerals vulcanNumerals;
+	private AlienNumerals alienNumerals;
 	private static Map<String, String> mappings;
 
-	protected NumeralMapper(RomanNumerals romanNumerals, VulcanNumerals vulcanNumerals){
+	protected NumeralMapper(RomanNumerals romanNumerals, AlienNumerals alienNumerals){
 		mappings = new HashMap<String, String>();
 		this.romanNumerals = romanNumerals;
-		this.vulcanNumerals = vulcanNumerals;
-		vulcanNumerals.storeNumeralMapper(this);
+		this.alienNumerals = alienNumerals;
+		alienNumerals.storeNumeralMapper(this);
 	}
+
 	public String convertToRomanNumeral(String[] vNumeral){
 		// pish tegj glob globkey
 		StringBuilder romanNumeral = new StringBuilder(vNumeral.length);
@@ -23,17 +24,14 @@ class NumeralMapper{
 		}
 		return romanNumeral.toString();
 	}
-	public String convertToVulcanNumeral(String rNumeral)
-	{
-		return new String();
-	}
+
 	public void addToMap(String vNumeral, String rNumeral){
 		if( mappings.containsKey(vNumeral) || getKeyByValue(rNumeral) !=null){
-			Util.promptUser("Mapping is already present.");
+			Util.promptUser("Mapping already done.");
 		}else{
-			if(vulcanNumerals.isWord(vNumeral)){
-				//add to list of know vulcan numerals
-				vulcanNumerals.addNumeral(vNumeral);
+			if(alienNumerals.isWord(vNumeral)){
+				//add to list of know alien numerals
+				alienNumerals.addNumeral(vNumeral);
 				mappings.put(vNumeral, rNumeral);
 			}else{Util.promptUser("Incorrect assignment.");}
 		}
