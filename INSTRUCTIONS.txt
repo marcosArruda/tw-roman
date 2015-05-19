@@ -1,0 +1,9 @@
+Esta aplicação recebe um arquivo (file.txt) e retorna o processamento desse arquivo.
+Para executar a aplicação com sucesso, você precisa ter o maven instalado executar: "maven clean install";
+A aplicação irá carregar o arquivo e fará parse de todas as linhas.
+O Parser é a classe que faz a leitura das linhas. O QuestionHandler é a classe que efetua a classificação dos tipos de pergunta.
+A Classe Global possui todas as Regular Expressions.
+
+At.,
+
+Marcos Arruda
